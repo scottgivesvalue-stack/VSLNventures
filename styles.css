@@ -1,0 +1,374 @@
+:root {
+  --ink: #e7edf5;
+  --muted: #9facbf;
+  --line: rgba(211, 223, 239, 0.18);
+  --accent: #dbe6f3;
+  --bg-1: #040507;
+  --bg-2: #0b1018;
+  --bg-3: #111a24;
+  --panel: rgba(14, 22, 32, 0.72);
+  --panel-line: rgba(216, 228, 243, 0.2);
+  --focus: #f4f8ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(70% 80% at 50% 0%, rgba(152, 181, 214, 0.14), transparent 58%),
+    radial-gradient(55% 45% at 0% 100%, rgba(171, 190, 213, 0.09), transparent 68%),
+    linear-gradient(165deg, var(--bg-1) 0%, var(--bg-2) 52%, var(--bg-3) 100%);
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(circle at 50% 40%, #000 42%, transparent 90%);
+  opacity: 0.35;
+}
+
+.page {
+  position: relative;
+  padding-bottom: 2.2rem;
+}
+
+.hero {
+  position: relative;
+  min-height: clamp(520px, 76vh, 840px);
+  width: min(1200px, calc(100% - 3rem));
+  margin: 0 auto;
+  border-radius: 0 0 1rem 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(216, 228, 243, 0.16);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.42);
+}
+
+.hero-media,
+.hero-gradient {
+  position: absolute;
+  inset: 0;
+}
+
+.hero-media {
+  background-image: url("assets/miami-skyline.jpg");
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.03);
+}
+
+.hero-gradient {
+  background:
+    linear-gradient(180deg, rgba(4, 10, 18, 0.16) 0%, rgba(4, 10, 18, 0.76) 76%, rgba(4, 10, 18, 0.96) 100%),
+    linear-gradient(110deg, rgba(9, 20, 33, 0.72) 0%, rgba(9, 20, 33, 0.3) 42%, rgba(9, 20, 33, 0.8) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  min-height: inherit;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 1.45rem;
+  text-align: center;
+  padding: 3.2rem 1.2rem 4rem;
+}
+
+.mark-shell {
+  width: clamp(218px, 26vw, 310px);
+  aspect-ratio: 1 / 1;
+  border-radius: 1.25rem;
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(145deg, rgba(232, 241, 251, 0.1), rgba(232, 241, 251, 0.02) 45%),
+    var(--panel);
+  border: 1px solid var(--panel-line);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    inset 0 -24px 36px rgba(0, 0, 0, 0.24),
+    0 20px 60px rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  transform: translateY(14px) scale(0.99);
+  animation: reveal 900ms cubic-bezier(0.2, 0.7, 0.1, 1) 90ms forwards;
+}
+
+.mark {
+  width: 72%;
+  height: auto;
+  filter: grayscale(1) contrast(1.22) brightness(1.28) drop-shadow(0 12px 18px rgba(0, 0, 0, 0.54));
+}
+
+.quote {
+  margin: 0;
+  max-width: min(96vw, 900px);
+  padding: 1rem 1.25rem;
+  color: #e8f0fa;
+  font-family: "Cinzel", "Times New Roman", serif;
+  font-size: clamp(0.82rem, 0.62rem + 0.95vw, 1.25rem);
+  line-height: 1.7;
+  letter-spacing: 0.13em;
+  white-space: nowrap;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, rgba(226, 236, 248, 0.09), rgba(226, 236, 248, 0.03));
+  border: 1px solid rgba(214, 227, 241, 0.26);
+  border-radius: 0.85rem;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transform: translateY(14px);
+  animation: reveal 900ms cubic-bezier(0.2, 0.7, 0.1, 1) 260ms forwards;
+}
+
+.contact {
+  margin-top: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 156px;
+  padding: 0.72rem 1.22rem;
+  border: 1px solid rgba(214, 227, 241, 0.4);
+  border-radius: 0.7rem;
+  color: var(--accent);
+  text-decoration: none;
+  font-family: "Cinzel", "Times New Roman", serif;
+  font-size: 0.77rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: linear-gradient(180deg, rgba(225, 236, 247, 0.06), rgba(225, 236, 247, 0.01));
+  transition:
+    background-color 240ms ease,
+    border-color 240ms ease,
+    color 240ms ease,
+    transform 240ms ease,
+    box-shadow 240ms ease;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: reveal 900ms cubic-bezier(0.2, 0.7, 0.1, 1) 470ms forwards;
+}
+
+.contact:hover,
+.contact:focus-visible {
+  color: var(--focus);
+  border-color: rgba(236, 245, 255, 0.72);
+  background: linear-gradient(180deg, rgba(228, 239, 250, 0.15), rgba(228, 239, 250, 0.05));
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.34);
+  transform: translateY(-1px);
+}
+
+.contact:focus-visible {
+  outline: none;
+}
+
+.institutional {
+  position: relative;
+  width: min(1140px, calc(100% - 3rem));
+  margin: -4.5rem auto 0;
+  padding: 1.35rem;
+  border: 1px solid rgba(214, 227, 241, 0.2);
+  border-radius: 1rem;
+  background: linear-gradient(180deg, rgba(18, 30, 44, 0.9), rgba(12, 20, 31, 0.94));
+  text-align: left;
+  box-shadow: 0 26px 56px rgba(0, 0, 0, 0.38);
+  opacity: 0;
+  transform: translateY(10px);
+  animation: reveal 900ms cubic-bezier(0.2, 0.7, 0.1, 1) 620ms forwards;
+}
+
+.institutional-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.9rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid rgba(214, 227, 241, 0.14);
+}
+
+.institutional-title {
+  margin: 0;
+  color: rgba(232, 241, 252, 0.95);
+  font-family: "Cinzel", "Times New Roman", serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.institutional-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr;
+  gap: 1.2rem;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.profile-grid {
+  margin: 0;
+  padding: 0;
+  align-self: center;
+}
+
+.profile-row {
+  margin: 0;
+  padding: 0.78rem 0;
+  display: grid;
+  grid-template-columns: 114px 1fr;
+  gap: 0.9rem;
+  align-items: start;
+  border-top: 1px solid rgba(214, 227, 241, 0.12);
+}
+
+.profile-row:first-child {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.profile-row dt {
+  margin: 0;
+  color: rgba(198, 211, 227, 0.82);
+  font-family: "Cinzel", "Times New Roman", serif;
+  font-size: 0.61rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+.profile-row dd {
+  margin: 0;
+  color: rgba(227, 237, 248, 0.92);
+  font-size: clamp(0.84rem, 0.82rem + 0.18vw, 0.92rem);
+  line-height: 1.45;
+}
+
+.notice-row dd {
+  color: rgba(188, 203, 219, 0.78);
+  font-size: clamp(0.67rem, 0.65rem + 0.14vw, 0.74rem);
+}
+
+.market-shot {
+  margin: 0;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  border: 1px solid rgba(214, 227, 241, 0.16);
+  background: rgba(9, 16, 24, 0.76);
+}
+
+.market-shot img {
+  width: 100%;
+  height: clamp(180px, 28vw, 260px);
+  object-fit: cover;
+  display: block;
+  filter: grayscale(1) contrast(1.22) brightness(0.9) saturate(0.6);
+}
+
+.market-shot figcaption {
+  margin: 0;
+  padding: 0.72rem 0.84rem;
+  color: rgba(197, 211, 228, 0.88);
+  font-size: 0.73rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+.secure-contact {
+  margin-top: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 170px;
+  padding: 0.58rem 1rem;
+  border: 1px solid rgba(214, 227, 241, 0.35);
+  border-radius: 0.6rem;
+  color: rgba(229, 238, 249, 0.93);
+  text-decoration: none;
+  font-family: "Cinzel", "Times New Roman", serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: rgba(225, 236, 247, 0.02);
+  transition: border-color 220ms ease, background-color 220ms ease, color 220ms ease;
+}
+
+.secure-contact:hover,
+.secure-contact:focus-visible {
+  border-color: rgba(236, 245, 255, 0.64);
+  background: rgba(225, 236, 247, 0.1);
+  color: var(--focus);
+}
+
+.secure-contact:focus-visible {
+  outline: none;
+}
+
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 720px) {
+  .hero {
+    min-height: 490px;
+    width: calc(100% - 1.4rem);
+  }
+
+  .hero-content {
+    padding: 2.6rem 0.8rem 3.1rem;
+  }
+
+  .mark-shell {
+    width: clamp(200px, 56vw, 260px);
+  }
+
+  .quote {
+    white-space: normal;
+    text-wrap: balance;
+    padding: 0.85rem 0.9rem;
+    font-size: clamp(0.78rem, 0.72rem + 0.65vw, 1.02rem);
+    letter-spacing: 0.09em;
+  }
+
+  .institutional {
+    width: calc(100% - 1.4rem);
+    margin-top: -2.8rem;
+    padding: 1rem;
+  }
+
+  .institutional-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+
+  .institutional-grid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+
+  .profile-row {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+
+  .market-shot img {
+    height: 190px;
+  }
+}
