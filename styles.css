@@ -269,6 +269,10 @@ body {
   background: rgba(9, 16, 24, 0.76);
 }
 
+.market-shot-mobile {
+  display: none;
+}
+
 .market-shot img {
   width: 100%;
   height: clamp(180px, 28vw, 260px);
@@ -324,7 +328,7 @@ body {
   }
 }
 
-@media (max-width: 720px) {
+@media (max-width: 900px) {
   .hero {
     min-height: 490px;
     width: calc(100% - 1.4rem);
@@ -352,6 +356,11 @@ body {
     padding: 0.95rem;
   }
 
+  .market-shot-mobile {
+    display: block;
+    margin-bottom: 0.85rem;
+  }
+
   .institutional-head {
     flex-direction: column;
     align-items: flex-start;
@@ -363,8 +372,8 @@ body {
     gap: 0.95rem;
   }
 
-  .market-shot {
-    order: -1;
+  .institutional-grid .market-shot {
+    display: none;
   }
 
   .profile-row {
