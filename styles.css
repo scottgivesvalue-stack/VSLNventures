@@ -357,8 +357,7 @@ body {
   }
 
   .market-shot-mobile {
-    display: block;
-    margin-bottom: 0.85rem;
+    display: none;
   }
 
   .institutional-head {
@@ -370,10 +369,6 @@ body {
   .institutional-grid {
     grid-template-columns: 1fr;
     gap: 0.95rem;
-  }
-
-  .institutional-grid .market-shot {
-    display: none;
   }
 
   .profile-row {
@@ -394,5 +389,16 @@ body {
 
   .market-shot img {
     height: 220px;
+  }
+}
+
+@media (max-width: 900px) and (pointer: coarse) {
+  .market-shot-mobile {
+    display: block;
+    margin-bottom: 0.85rem;
+  }
+
+  .institutional-grid .market-shot {
+    display: none;
   }
 }
